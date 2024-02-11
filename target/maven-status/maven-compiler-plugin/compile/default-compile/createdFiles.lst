@@ -1,0 +1,4 @@
+com/globo/DesafioDevops/controller/DesafioController.class
+com/globo/DesafioDevops/model/Desafio.class
+com/globo/DesafioDevops/repository/DesafioRepository.class
+com/globo/DesafioDevops/DesafioDevopsApplication.class
