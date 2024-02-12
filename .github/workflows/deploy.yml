@@ -9,8 +9,7 @@ on:
 jobs:
     build:
       runs-on: ubuntu-latest
-      services:
-        options: --health-cmd pg_isready --health-interval 360s --health-timeout 360ss --health-retries 360s
+
       steps:
           - name: Build
             run: echo Building the app
@@ -25,6 +24,7 @@ jobs:
        steps:
          - name: Repo Checkout
            uses: actions/checkout@v1
+         
          - name: 📂 Sync files
            uses: SamKirkland/FTP-Deploy-Action@4.0.0
            with:
