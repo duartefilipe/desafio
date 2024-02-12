@@ -25,13 +25,13 @@ jobs:
          - name: Repo Checkout
            uses: actions/checkout@v1
          
-         - name: 📂 Sync files
-           uses: SamKirkland/FTP-Deploy-Action@4.0.0
-           with:
-            server: 192.168.100.222
-            username: anakin
-            password: senha
-            server-dir: /home/anakin/desafio/
+#         - name: 📂 Sync files
+#           uses: SamKirkland/FTP-Deploy-Action@4.0.0
+#           with:
+#            server: 192.168.100.222
+#            username: anakin
+#            password: senha
+#            server-dir: /home/anakin/desafio/
           
          - name: Prd
            uses: easingthemes/ssh-deploy@main
