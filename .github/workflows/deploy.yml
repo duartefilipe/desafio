@@ -31,10 +31,10 @@ jobs:
 
            with:
 
-            server: 192.168.100.222
+            server: 200.203.76.242
             username: anakin
-            password: senha
-            server-dir: /home/anakin/desafio/
+            password: eumesmo
+            server-dir: /home/anakin/teste/
                       
          - name: Prd
            uses: easingthemes/ssh-deploy@main
