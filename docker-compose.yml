@@ -1,0 +1,120 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "Eunaoseiasenha22"
+    ports:
+      - "15432:5432"
+    volumes:
+      - /home/anakin/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data 
+    networks:
+      - postgres-network
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "filipeduarte.si@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "Eunaoseiasenha22"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    networks:
+      - network-zabbix
+    ports:
+      - '3306:3306'
+    volumes:
+      - './zabbix/mysql:/var/lib/data'
+    environment:
+      - MYSQL_ROOT_PASSWORD=carryontech
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=carryontech
+
+  zabbix-server:
+    container_name: zabbix-server
+    image: zabbix/zabbix-server-mysql:ubuntu-5.0.1
+    networks:
+      - network-zabbix
+    links:
+      - mysql
+    restart: always
+    ports:
+      - '10051:10051'
+    volumes:
+      - './zabbix/alertscripts:/usr/lib/zabbix/alertscripts'
+    environment:
+      - DB_SERVER_HOST=mysql
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=carryontech
+    depends_on:
+      - mysql
+  zabbix-frontend:
+    container_name: zabbix-frontend
+    image: zabbix/zabbix-web-apache-mysql:ubuntu-5.0.1
+    networks:
+      - network-zabbix
+    links:
+      - mysql
+    restart: always
+    ports:
+      - '86:8080'
+      - '444:8443'
+    environment:
+      - DB_SERVER_HOST=mysql
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=carryontech
+      - PHP_TZ=America/Sao_Paulo
+    depends_on:
+      - mysql
+   
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    networks:
+      - network-zabbix
+    links:
+      - mysql
+      - zabbix-server
+    restart: always
+    ports:
+      - '3000:3000'
+    environment: 
+      - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
+    depends_on:
+      - mysql
+      - zabbix-server
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest 
+    ports:
+      - 9000:9000
+    volumes:
+        - /portainer_data:/data
+        - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+volumes:
+  data:
+
+
+networks: 
+  postgres-network:
+    driver: bridge
+  network-zabbix:
+    driver: bridge
+  spring-boot-postgres-network:
+    driver: bridge
+
+
+
+
