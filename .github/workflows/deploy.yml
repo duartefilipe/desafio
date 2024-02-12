@@ -20,8 +20,8 @@ jobs:
           url: 200.203.76.242:/home/anakin/desafio
        needs: build
        steps:
-         - name: Repo Checkout
-           uses: actions/checkout@v1
+         - name: 🚚 Get latest code
+           uses: actions/checkout@v2
            
          - name: 📂 Sync files
            uses: SamKirkland/FTP-Deploy-Action@4.0.0
