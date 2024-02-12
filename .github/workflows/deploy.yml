@@ -9,6 +9,8 @@ on:
 jobs:
     build:
       runs-on: ubuntu-latest
+      services:
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       steps:
           - name: Build
             run: echo Building the app
@@ -18,6 +20,7 @@ jobs:
        environment:
           name: prd
           url: 200.203.76.242:/home/anakin/desafio
+      
        needs: build
        steps:
          - name: Repo Checkout
@@ -29,6 +32,7 @@ jobs:
             username: anakin
             password: Eunaoseiasenha22
             server-dir: /home/anakin/desafio/
+          
          - name: Prd
            uses: easingthemes/ssh-deploy@main
            with:
