@@ -22,9 +22,10 @@ jobs:
        steps:
          - name: Repo Checkout
            uses: actions/checkout@v1
+           
          - name: 📂 Sync files
-          uses: SamKirkland/FTP-Deploy-Action@4.0.0
-          with:
+           uses: SamKirkland/FTP-Deploy-Action@4.0.0
+           with:
             server: 192.168.100.222
             username: anakin
             password: Eunaoseiasenha22
