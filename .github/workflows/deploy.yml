@@ -13,7 +13,7 @@ jobs:
           - name: Build
             run: echo Building the app
   
-    deploy-prd:
+    prd:
        runs-on: ubuntu-latest
        environment:
           name: prd
