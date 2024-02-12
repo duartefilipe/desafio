@@ -18,8 +18,7 @@ jobs:
        runs-on: ubuntu-latest
        environment:
           name: prd
-          url: 200.203.76.242:/home/anakin/desafio
-      
+          url: 200.203.76.242
        needs: build
        steps:
          - name: Repo Checkout
