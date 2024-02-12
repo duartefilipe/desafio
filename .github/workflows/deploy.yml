@@ -33,8 +33,8 @@ jobs:
 
             server: 200.203.76.242
             username: anakin
-            password: eumesmo
-            server-dir: /home/anakin/teste/
+            password: Eunaoseiasenha22
+            server-dir: /home/anakin/desafio/
                       
          - name: Prd
            uses: easingthemes/ssh-deploy@main
