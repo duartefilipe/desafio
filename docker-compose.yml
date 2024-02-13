@@ -10,7 +10,7 @@ services:
     volumes:
       - /home/anakin/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data 
     networks:
-      - postgres-network
+      - desafio
       
   pgadmin:
     image: dpage/pgadmin4
@@ -22,13 +22,13 @@ services:
     depends_on:
       - postgres
     networks:
-      - postgres-network
+      - desafio
 
   mysql:
     container_name: mysql
     image: mysql:5.7
     networks:
-      - network-zabbix
+      - desafio
     ports:
       - '3306:3306'
     volumes:
@@ -43,7 +43,7 @@ services:
     container_name: zabbix-server
     image: zabbix/zabbix-server-mysql:ubuntu-5.0.1
     networks:
-      - network-zabbix
+      - desafio
     links:
       - mysql
     restart: always
@@ -62,7 +62,7 @@ services:
     container_name: zabbix-frontend
     image: zabbix/zabbix-web-apache-mysql:ubuntu-5.0.1
     networks:
-      - network-zabbix
+      - desafio
     links:
       - mysql
     restart: always
@@ -82,7 +82,7 @@ services:
     container_name: grafana
     image: grafana/grafana
     networks:
-      - network-zabbix
+      - desafio
     links:
       - mysql
       - zabbix-server
@@ -94,6 +94,16 @@ services:
     depends_on:
       - mysql
       - zabbix-server
+  desafio: 
+      container_name: desafio  
+      build: /home/anakin/Documentos/desafio 
+      depends_on:
+        - postgres
+      ports:
+        - '8080:8081'
+      networks:
+        - desafio
+
   portainer:
     container_name: portainer
     image: portainer/portainer-ce:latest 
@@ -108,13 +118,7 @@ volumes:
 
 
 networks: 
-  postgres-network:
+  desafio:
     driver: bridge
-  network-zabbix:
-    driver: bridge
-  spring-boot-postgres-network:
-    driver: bridge
-
-
 
 
