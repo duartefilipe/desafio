@@ -35,7 +35,6 @@ jobs:
             username: anakin
             password: Eunaoseiasenha22
             server-dir: /home/anakin/desafio/
-            port: 22
                       
 #         - name: Prd
 #           uses: easingthemes/ssh-deploy@main
